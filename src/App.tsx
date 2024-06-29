@@ -1,34 +1,32 @@
 import { useState } from "react";
 import { Picker, BottomSheet } from "react-ios-style-picker";
 
-const years = Array.from({ length: 5 }, (_, i) => 2021 + i);
-const months = Array.from({ length: 12 }, (_, i) => `${i + 1}월`);
-const days = Array.from({ length: 31 }, (_, i) => `${i + 1}일`);
+const years = Array.from({ length: 5 }, (_, i) => <div>{2021 + i}년</div>);
+const months = Array.from({ length: 12 }, (_, i) => <div>{i + 1}월</div>);
+const days = Array.from({ length: 31 }, (_, i) => <div>{i + 1}일</div>);
 
 function App() {
   const today = new Date();
-  const initialYear = today.getFullYear();
-  const initialMonth = `${today.getMonth() + 1}월`; // JavaScript months are 0-based
-  const initialDay = `${today.getDate()}일`;
+  const initialYear = <div>{today.getFullYear()}년</div>;
+  const initialMonth = <div>{today.getMonth() + 1}월</div>;
+  const initialDay = <div>{today.getDate()}일</div>;
 
-  const [selectedYear, setSelectedYear] = useState<string | number>(
-    initialYear
-  );
-  const [selectedMonth, setSelectedMonth] = useState<string | number>(
-    initialMonth
-  );
-  const [selectedDay, setSelectedDay] = useState<string | number>(initialDay);
+  const [selectedYear, setSelectedYear] =
+    useState<React.ReactNode>(initialYear);
+  const [selectedMonth, setSelectedMonth] =
+    useState<React.ReactNode>(initialMonth);
+  const [selectedDay, setSelectedDay] = useState<React.ReactNode>(initialDay);
   const [isBottomSheetOpen, setBottomSheetOpen] = useState(true);
 
-  const handleYearChange = (year: string | number) => {
+  const handleYearChange = (year: React.ReactNode) => {
     setSelectedYear(year);
   };
 
-  const handleMonthChange = (month: string | number) => {
+  const handleMonthChange = (month: React.ReactNode) => {
     setSelectedMonth(month);
   };
 
-  const handleDayChange = (day: string | number) => {
+  const handleDayChange = (day: React.ReactNode) => {
     setSelectedDay(day);
   };
 
@@ -52,9 +50,6 @@ function App() {
       >
         <Picker
           list={years}
-          itemStyle={{
-            width: "100px",
-          }}
           onSelectedChange={handleYearChange}
           initialSelected={initialYear}
         />
@@ -62,22 +57,16 @@ function App() {
           list={months}
           onSelectedChange={handleMonthChange}
           initialSelected={initialMonth}
-          itemStyle={{
-            width: "100px",
-          }}
         />
         <Picker
           list={days}
           onSelectedChange={handleDayChange}
           initialSelected={initialDay}
-          itemStyle={{
-            width: "100px",
-          }}
         />
       </BottomSheet>
       <div className="flex h-12 w-full flex-1 items-start justify-center gap-2 self-stretch px-4">
         <div>
-          {`${selectedYear}년  /  ${selectedMonth}   /  ${selectedDay}`}
+          {selectedYear} / {selectedMonth} / {selectedDay}
         </div>
       </div>
     </>
