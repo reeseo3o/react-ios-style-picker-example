@@ -32,11 +32,12 @@ function App() {
 
   return (
     <>
+      <button onClick={() => setBottomSheetOpen(true)}>날짜 선택</button>
       <BottomSheet
         isOpen={isBottomSheetOpen}
         className="custom-bottom-sheet"
         style={{
-          padding: "60px 20px",
+          padding: "40px 20px",
         }}
         onClose={() => setBottomSheetOpen(false)}
         button={
@@ -65,9 +66,9 @@ function App() {
         />
       </BottomSheet>
       <div className="flex h-12 w-full flex-1 items-start justify-center gap-2 self-stretch px-4">
-        <div>
-          {selectedYear} / {selectedMonth} / {selectedDay}
-        </div>
+        <div>{selectedYear}</div>
+        <div>{selectedMonth}</div>
+        <div>{selectedDay}</div>
       </div>
     </>
   );
